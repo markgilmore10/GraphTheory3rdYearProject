@@ -9,23 +9,23 @@ def shunt(infix):
     postfix = ""
     stack = ""
 
-    for c in infix:
-        if c == '(':
-            stack = stack + c
+    for char in infix:
+        if char == '(':
+            stack = stack + char
 
-        elif c == ')':
+        elif char == ')':
             while stack[-1] != '(':
                 postfix = postfix + stack[-1]
                 stack = stack[:-1]
             stack = stack[:-1]
 
-        elif c in specials:
-            while stack and specials.get(c, 0) <= specials.get(stack[-1], 0):
+        elif char in specials:
+            while stack and specials.get(char, 0) <= specials.get(stack[-1], 0):
                 postfix = postfix + stack[-1]
                 stack = stack[:-1]
-            stack = stack + c
+            stack = stack + char
         else:
-            postfix = postfix + c
+            postfix = postfix + char
 
     while stack:
         postfix = postfix + stack[-1]
