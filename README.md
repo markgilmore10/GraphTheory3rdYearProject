@@ -11,11 +11,11 @@
 
 ## Author Info
 
-Name: Mark Gilmore
-Student Number: G00214777
-Year: 3rd
-Subject: Graph Theory
-Lecturer: Ian McLoughlin
+- Name: Mark Gilmore
+- Student Number: G00214777
+- Year: 3rd
+- Subject: Graph Theory
+- Lecturer: Ian McLoughlin
 
 [Back To The Top](#GraphTheory3rdYearProject-README)
 
@@ -57,9 +57,9 @@ This NFA can be used to match strings against the regular expression.
 
 ## How To Use
 
-Clone the Repository
-Navigate to the folder using the command line
-Run thompsonsConstruction.py
+- Clone the Repository
+- Navigate to the folder using the command line
+- Run thompsonsConstruction.py
 
 [Back To The Top](#GraphTheory3rdYearProject-README)
 
