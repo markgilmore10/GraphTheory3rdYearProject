@@ -8,6 +8,7 @@
 - [References](#references)
 
 ---
+
 ## Author Info
 
 Name: Mark Gilmore
@@ -16,7 +17,9 @@ Year: 3rd
 Subject: Graph Theory
 Lecturer: Ian McLoughlin
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#GraphTheory3rdYearProject-README)
+
+---
 
 ## Description
 - The Shunt Algorithm
@@ -31,19 +34,24 @@ Thompsons Construction is a method of transforming regular expressions into
 nondeterministic finite automaton (NFA). 
 This NFA can be used to match strings against the regular expression.
 
+[Back To The Top](#GraphTheory3rdYearProject-README)
+
+---
+
 #### Language
 
 - Python
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#GraphTheory3rdYearProject-README)
 
+---
 
 #### Technologies
 
 - Visual Studio Code
 - CMDER Command Line Interface
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#GraphTheory3rdYearProject-README)
 
 ---
 
@@ -53,7 +61,7 @@ Clone the Repository
 Navigate to the folder using the command line
 Run thompsonsConstruction.py
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#GraphTheory3rdYearProject-README)
 
 ---
 
@@ -64,4 +72,4 @@ Run thompsonsConstruction.py
 - Wikipedia
 - Youtube
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#GraphTheory3rdYearProject-README)
