@@ -1,15 +1,25 @@
-# Shunting Yard Algorithm
 # Mark Gilmore
+# Shunting Yard Algorithm
 # http://www.oxfordmathcenter.com/drupal7/node/628
 
 def shunt(infix):
+    """ 
+    Developed by Edsger Dijkstra The Shunting Yard Algorithm 
+    changes an infix notation to a postfix notation using a stack
+    to hold operators.
+    The purpose of the stack is to reverse the order of the 
+    operators in the expression.
+    """
 
-    specials = { '*': 50, '.': 40, '|': 30 }
+    # setting operator precedence
+    opPrecedence = { '*': 60, '+': 50, '?': 50, '.': 40, '|': 30 }
 
     postfix = ""
     stack = ""
 
+    # looping through the string
     for c in infix:
+        # push open bracket to stack
         if c == '(':
             stack = stack + c
 
@@ -17,10 +27,12 @@ def shunt(infix):
             while stack[-1] != '(':
                 postfix = postfix + stack[-1]
                 stack = stack[:-1]
+            # removes closing bracket from the stack
             stack = stack[:-1]
 
-        elif c in specials:
-            while stack and specials.get(c, 0) <= specials.get(stack[-1], 0):
+        elif c in opPrecedence:
+            while stack and opPrecedence.get(c, 0) <= opPrecedence.get(stack[-1], 0):
+                # concat next character to string
                 postfix = postfix + stack[-1]
                 stack = stack[:-1]
             stack = stack + c
@@ -35,8 +47,11 @@ def shunt(infix):
 
 
 # Thompsons Construction
-# Mark Gilmore
-
+"""
+Thompsons Construction is a method of transforming regular expressions into 
+nondeterministic finite automaton (NFA). 
+This NFA can be used to match strings against the regular expression.
+"""
 
 # represents a state with two arrows, labelled by label
 # use none for a label representing "e" arrows
@@ -50,31 +65,73 @@ class nfa:
     initial = None
     accept = None
 
+    # NFA constructor
     def __init__(self, initial, accept):
         self.initial = initial
         self.accept = accept
 
 def compile(postfix):
-    nfastack = []
+    nfaStack = []
 
     for c in postfix:
-        if c == '.':
+        if c == '.': # concat
             # pop two nfa's off the stack
-            nfa2 = nfastack.pop()
-            nfa1 = nfastack.pop()
+            nfa2 = nfaStack.pop()
+            nfa1 = nfaStack.pop()
 
             # connect first nfa's accept state to the second's initial state
             nfa1.accept.edge1 = nfa2.initial
 
-            # push nfa to the stack
-            # nfastack.append(nfa1.initial, nfa2.accept)
+            # push to stack
             newnfa = nfa(nfa1.initial, nfa2.accept)
-            nfastack.append(newnfa)
+            nfaStack.append(newnfa)
 
-        elif c == '|':
+        elif c == '+': # one or more
+            # pop one nfa from the stack
+            nfa1 = nfaStack.pop()
+
+            # create new initial and accept state
+            initial = state()
+            accept = state()
+
+            # join the new initial state to nfa's initial state and the new accept state
+            initial.edge1 = nfa1.initial
+            
+            # join the old accept state to the new accept and nfa1's initial state
+            nfa1.accept.edge1 = nfa1.initial
+            nfa1.accept.edge2 = accept
+
+            # push the new nfa to the stack
+            new_nfa = nfa(initial, accept)
+            nfaStack.append(new_nfa)
+        
+        # Operator - 1 or 0
+        elif c == "?": # one or zero
+            # pop a one nfa from the stack
+            nfa1 = nfaStack.pop()
+
+            # create new initial and accept state
+            initial = state()
+            accept = state()
+
+            # point new initial state edge1 to the popped nfa's initial state 
+            initial.edge1 = nfa1.initial
+
+            # point new initial states edge2 to new accept state
+            initial.edge2 = accept
+
+            # point popped nfa's accept state edge1 to new accept state 
+            nfa1.accept.edge1 = accept
+
+            # push the new nfa to stack
+            new_nfa = nfa(initial, accept)
+            nfaStack.append(new_nfa)
+        
+
+        elif c == '|': # or
             # pop two nfa's off the stack
-            nfa2 = nfastack.pop()
-            nfa1 = nfastack.pop()
+            nfa2 = nfaStack.pop()
+            nfa1 = nfaStack.pop()
 
             # create a new initial state, connect it to the initial states
             # of the two nfa's popped from the stack
@@ -89,13 +146,12 @@ def compile(postfix):
             nfa2.accept.edge1 = accept
 
             # push the new nfa to the stack
-            # nfastack.append(nfa(initial, accept))
             newnfa = nfa(initial, accept)
-            nfastack.append(newnfa)
+            nfaStack.append(newnfa)
 
-        elif c == '*':
+        elif c == '*': # zero or more
             # pop a single nfa from the stack
-            nfa1 = nfastack.pop()
+            nfa1 = nfaStack.pop()
 
             # create new initial and accept states
             accept = state()
@@ -110,11 +166,10 @@ def compile(postfix):
             nfa2.accept.edge2 = accept
 
             # push the new nfa to the stack
-            # nfastack.append(nfa(initial, accept))
             newnfa = nfa(initial, accept)
-            nfastack.append(newnfa)
+            nfaStack.append(newnfa)
 
-        else:
+        else: # deals with any other characters
             # create new initial and accept states
             accept = state()
             initial = state()
@@ -124,12 +179,11 @@ def compile(postfix):
             initial.edge1 = accept
 
             # push the new nfa to the stack
-            # nfastack.append(nfa(initial, accept))
             newnfa = nfa(initial, accept)
-            nfastack.append(newnfa)
+            nfaStack.append(newnfa)
 
-    # nfastack should only have a single nfa at this point
-    return nfastack.pop()
+    # nfaStack should only have a single nfa at this point
+    return nfaStack.pop()
 
 def followes(state):
     """Return the set of states that can be reached from state following e arrows"""
@@ -182,8 +236,8 @@ def match(infix, string):
     # check if the accept state is in the set of current states
     return (nfa.accept in current)
 
-infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "a.(b.b)*.c"]
-strings = ["", "abc", "abbc", "abcc", "abad", "abbbc"]
+infixes = ["a.b.c*", "a.b.c+", "a.b.c?", "a.(b|d).c*", "(a.(b|d))*", "a.(b.b)*.c" ]
+strings = ["", "abc", "abcd", "abba", "abbc", "abcc", "abad", "abbbc"]
 
 for i in infixes:
     for s in strings:
