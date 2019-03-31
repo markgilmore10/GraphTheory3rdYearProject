@@ -10,19 +10,38 @@
 ---
 ## Author Info
 
-- Twitter - [@jamesqquick](https://twitter.com/jamesqquick)
-- Website - [James Q Quick](https://jamesqquick.com)
+Name: Mark Gilmore
+Student Number: G00214777
+Year: 3rd
+Subject: Graph Theory
+Lecturer: Ian McLoughlin
 
 [Back To The Top](#read-me-template)
 
 ## Description
+- The Shunt Algorithm
+Developed by Edsger Dijkstra The Shunting Yard Algorithm 
+changes an infix notation to a postfix notation using a stack
+to hold operators.
+The purpose of the stack is to reverse the order of the 
+operators in the expression.
 
-Creating ReadMe's for your Github repository can be tedious.  I hope this template can save you time and effort as well as provide you with some consistency across your projects.
+- Thompsons Construction
+Thompsons Construction is a method of transforming regular expressions into 
+nondeterministic finite automaton (NFA). 
+This NFA can be used to match strings against the regular expression.
+
+#### Language
+
+- Python
+
+[Back To The Top](#read-me-template)
+
 
 #### Technologies
 
-- Technology 1
-- Technology 2
+- Visual Studio Code
+- CMDER Command Line Interface
 
 [Back To The Top](#read-me-template)
 
@@ -30,18 +49,19 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 
 ## How To Use
 
-#### Installation
+Clone the Repository
+Navigate to the folder using the command line
+Run thompsonsConstruction.py
 
-
-
-#### API Reference
-
-```html
-    <p>dummy code</p>
-```
 [Back To The Top](#read-me-template)
 
 ---
 
 ## References
+
+- # http://www.oxfordmathcenter.com/drupal7/node/628
+- Lecturers Tutorials
+- Wikipedia
+- Youtube
+
 [Back To The Top](#read-me-template)
